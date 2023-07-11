@@ -1,0 +1,64 @@
+```{r}
+animedata <- dataanime
+animedata
+```
+
+Filtering by studio
+
+```{r}
+filter(animedata,Studios == "MAPPA")
+filter(animedata,Studios == "Wit Studio")
+```
+
+filtering by genre
+
+```{r}
+filter(animedata,Genres %in% c("Action","Sci-Fi"))
+```
+
+Select()
+
+```{r}
+select(animedata,Studios, Sources, Rating)
+```
+
+Mutate
+
+```{r}
+str(animedata)
+```
+
+```{r}
+smalldata <- select(animedata,Title,Rating,Members,Favorites,Score, `Scored by`)
+mutate(smalldata,
+       notscored = Members - `Scored by` ,
+       notfavorites = Members - Favorites,
+       .by = Rating)
+```
+
+notscored shows how many members of an anime didnt score it and notfavorites shows how many members of anime don't have it as one of their favorites
+
+summarize()
+
+```{r}
+summarize(animedata, meanscore = mean(Score,na.rm=T),
+          .by = Rating)
+```
+
+arrange()
+
+```{r}
+arrange(animedata, Rating, Score)
+```
+
+Making a visualization with a smaller dataset
+
+```{r}
+smalldata <- select(animedata,Type, Sources, Rating,Favorites)
+smalldata
+
+ggplot(data = smalldata,aes(x=Favorites,y=Sources))+
+         geom_violin()
+```
+
+Note: The anime that people tend to favorite the most are based on manga (kinda like the japanese version of how superhero movies are based off of comic books), visual and light novels or nothing (original).
