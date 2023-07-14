@@ -1,0 +1,301 @@
+installing packages
+
+```{r}
+#install.packages("tidyr")
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+#install.packages("janitor")
+library(janitor)
+```
+
+data scientists spent 50-80 percent of time mired in more mundane labor of cleaning, transforming and wrangling the data
+
+clean_names(data)
+
+resulting names are unique and conist only of the \_ character, numers, and letters. capitalization preferences can be specified using the case parameter
+
+```{r}
+starwars
+
+clean_names(starwars,case = "screaming_snake")
+clean_names(starwars,case= "small_camel")
+newstarwars <- clean_names(starwars,case="screaming_snake")
+newstarwars
+
+clean_names(newstarwars)
+newstarwars
+newstarwars <- rename(newstarwars,'hair*color' = HAIR_COLOR)
+clean_names(newstarwars)
+newstarwars
+```
+
+clean_names is a shortcut for renaming all the columns
+
+```{r}
+StarWarsWomen <- select(filter(arrange(starwars,birth_year),sex=="female"),name,species)
+StarWarsWomen
+
+starwarswomen <- filter(starwars,sex == "female")
+starwarswomen <- arrange(starwarswomen,birth_year)
+starwarswomen <- select(starwarswomen,name,species)
+```
+
+pipe
+
+function(data,parameters)
+
+becomes
+
+data\|\> function(parameters)
+
+function2(function(data,parameters),params2)
+
+becomes
+
+data\|\>function(parameters)\|\> function2(params2)
+
+slice\_ functions take rows based on your positions
+
+slice_head(data,n=1) takes first row from each group
+
+slice_tail(data,n=1) last row from each group
+
+slice_min(data,x,n=1) takes the row with the smallest value of column x
+
+slice_max(data,x,n=1) takes the row with the largest value of column x
+
+slice_sample(data,n=1) takes out one random row
+
+you can vary n to select more than one row,
+
+or instead of n= you can use prop = 0.1 to select (e.g.) 10% of the rows in each group
+
+```{r}
+slice = slice_head(starwars,n=1)
+slice
+
+slice <- slice_max(starwars,height,n=10) #10 tallest star wars characters
+slice
+
+slice <- slice_max(starwars,height,n=2, by=species,with_ties = F)
+slice
+```
+
+table4a
+
+```{r}
+table4a
+
+tidy_table4a <- pivot_longer(table4a, cols = c('1999','2000'),
+             names_to = "year",
+             values_to = "cases")
+
+table4b #shows population data
+## how would we pivot table4b to the tidy format
+tidy_table4b <- pivot_longer(table4b,cols = c('1999','2000'),
+             names_to = "year",
+             values_to = "population")
+```
+
+pivot wider
+
+```{r}
+##pivot wider
+pivot_wider(table2,
+            names_from = type,
+            values_from = count)
+```
+
+separate
+
+```{r}
+
+table3
+
+separate(table3,rate,into = c("cases","population"),
+         sep = "/")
+```
+
+unite
+
+```{r}
+table5
+
+tidy_table5 <- unite(table5,
+      "year",
+       c("century","year"),
+      sep = "")
+
+```
+
+bind rows
+
+```{r}
+new_data <- data.frame(country = "USA", year = "1999",cases = "1042", population = "2000000")
+
+bind_rows(tidy_table5,new_data)
+```
+
+# data analysis: hypothesis testing
+
+roadmap:
+
+-   study design
+
+-   hypothesis testing
+
+-   t test, p values and z scores
+
+-   anova test
+
+-   power and error
+
+goal: be able to design a study, test, etc
+
+study design: indipendent and dependent variables
+
+independent = i change
+
+dependent = data
+
+does the number of hours a student studies influence how well they do on an exam
+
+indipendent: hours of studying dependent: grade on exam
+
+does the type of music a plant is exposed to affect its growth
+
+independent: type of music dependent: growth
+
+is exercising related to happier relationships
+
+independent: exercise dependent: happy relationship
+
+correlation does not = causation. if two things go up at the same time dosent mean they're connected
+
+we do things on a sample group and how we sample things affects our study
+
+convenience sample: people who are most nearby to you
+
+random sample: randomly choosing people to survey
+
+cluster sample: groups of people in different clusters
+
+stratified sample: different strata, random sample in each strata (for example different grade levels)
+
+normal distribution: bell curve shape, mean and median are same, 99.7% of data within 3 standard deviations of mean/median
+
+z value = value-mean/standard deviation
+
+if positive means greater than mean, if negative then smaller than mean
+
+using a sample we can try to draw conclusions on whats true of the general population
+
+null hypothesis: hypothesis if theres no change
+
+alternate hypothesis: what your actual hypothesis is
+
+hypothesis testing:
+
+-   determining the null and alternative hypothesis
+
+-   determining the direction of the test
+
+-   calculating the z-value (how many standard deviations away from mean) based on your observation
+
+-   find the p value (probability of this happening by chance)
+
+-   comparing the p value to significant level
+
+one tailed:
+
+alternative hypothesis: great than or less than
+
+two tailed:
+
+alternative hypothesis: not equal to
+
+for example: we think there are less than 40 cookies so we do one tailed
+
+p value: probability of obtaining the observed difference if the null hypothesis is true
+
+how do we calculate p values
+
+-   to calculate a p value, we first have to calculate a test statistic
+
+-   the test statistic is a number calculated from a statistical test of a hypothesis
+
+-   it shows how closely hour observed data match the distribution expected under the null hypothesis of that statistical test
+
+how do we calculate test statistic?:
+
+depends on the test we are using
+
+we are going to start with the one sample t test
+
+we will need:
+
+-   the difference we are testing
+
+-   the spread of the data in out sample
+
+-   the amount of data in our sample
+
+for our sample we will need
+
+the difference we are testing: sample mean = 6.5, population mean=7
+
+the spread of the data in our sample: sample standard deviation = 1.35
+
+amount of data in our sample = 10
+
+t = 6.5-7/1.35/sqr10
+
+to convert to a p value
+
+t.test(sample_data,mu=pop_mean), this gives us a p value
+
+p value = 0.279
+
+there is a 27.29% chance we would see a difference of 0.5 or more just by chance
+
+more than 1 out of 4 times we say theres a difference, there isnt actually a difference
+
+25% of the time is far too often to say that this is most likely a real difference
+
+the widely accepted rare enough percentage is 5%
+
+if p value\<0.05, the data supports the alternate hypothesis, there is a significant difference
+
+if p value \>= 0.05, the data fails to reject the null hypothesis, there is not a significant difference
+
+we want to know is there a relationship between coffee drinking and the number of hours of sleep a student gets each night
+
+null hypothesis: no relationship
+
+Alternate hypothesis: there is a relationship.
+
+t.test(sample1_data, sample2_data)
+
+sample1_data is the data for your first category as a numeric vector (the hours of sleep for al coffee drinkers)
+
+sample 2_data is the data for your second category as a numeric vector (th ehours of sleep for all non coffee drinkers)
+
+other types of t tests:
+
+one sample, one tailed test (t.test(sample_data,mu = mean,alternative = "greater")
+
+two sample, one tailed test (t.test(sample1_data,sample2_data,alternative="less")
+
+two sample, paired, two tailed test:
+
+t.test(sample1_data,sample2_data,paired = TRUE
+
+one sample: is there a difference betwene a group and the population
+
+indepdnent sample: is there a difference betwene two groups
+
+paired samples: is there a difference in a group between two points in time

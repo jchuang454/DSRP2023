@@ -1,0 +1,85 @@
+halfway through content part
+
+# developing a scientists mindset
+
+scientists are explorers
+
+science is a tool that allows us to explore the world around us
+
+science cant answer every question, be aware of the context of your question
+
+when exploring data:
+
+-   embrace creatviity and try new things
+
+-   keep an open mind to discover unexpected insights and patterns
+
+-   consider the source and diversity of your data
+
+be aware of sampling bias
+
+scientists are observers
+
+observtion is the first step of the scientific method
+
+observation to hypothesis to experiment to data collection/analysis. either evidence supports hypothesis and it leads to communication or hypothesis needs to be revised
+
+when we make observations about data, we must make sure they are in context
+
+unconcious bias exists where people are bias for no logical reason
+
+people can believe falsehoods that may be wrong
+
+ads and stuff like that can be based on user activity and may have assumptions about the user that may or may not be true
+
+when observing trends in data, ask
+
+-   are there any outside factors that might influence data outcomes?
+
+-   how was the data collected? what assumptions were made
+
+when dealing with ai models must think about how the data is collected, any biases that it might have, etc
+
+scientists are skeptics
+
+everything is not always as it seems
+
+when given data on some things must also consider why there isnt data for other things
+
+scientists are responsible
+
+scientists are responsible for their decisions
+
+important to keep each other accountable and be constructive critics
+
+science is based in discovery and means nothing if it isnt shared
+
+coding with integreity:
+
+-   make sure code is weell documented
+
+-   be transparent about your methods
+
+-   dont cherry pick your data
+
+-   cite your sources and give yourself and others credit
+
+-   be aware of data privacy and security
+
+making science accesbiel
+
+-   plot/image descriptions
+
+-   colorblind friendly color palettes
+
+-   be sure its not too cluteered with extra info, really bright colors, too many colors, etc
+
+-   be strategic and intentional about what you choose to plot and how you plot it
+
+inclusive design principles
+
+1.  recognize diversity, uniqueness and exclusion
+2.  incorporate an empathetic mindset
+3.  create a broader beneficial impact
+
+science is not an isolated experience, its meant to be shared with people and not just other scientists

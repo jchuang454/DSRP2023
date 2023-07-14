@@ -1,0 +1,74 @@
+paired is only true when comparing the same group in two different points in time
+
+t = samplemean-populationmean/samplestandarddeviation/sqrsamplesize
+
+what if we have more than 2 samples?
+
+anova = ANalsis Of VAriance
+
+f statistic = variance between groups/ variance within groups
+
+null hypothesis: all groups have the same mean
+
+alternatve hypothesis: 2+ groups have different means
+
+aov(data = dataset, numeri_var \~ cat_var)
+
+dataset is the name of the dataset with the columns you want to analyze
+
+numeric_var is the numeric variable you want to use to test for a difference
+
+cat_var is the categorical variable that you want to compare the groups of
+
+we can think of the \~ symbol as a "by" symbol
+
+finding meaning of anova in r
+
+anova_test \<- aov(data = dataset,numeric_var \~ cat_var
+
+summary(anova_test)
+
+TukeyHSD(anova_test). this tells us which categories are different
+
+## machine learning:
+
+at its core its a bunch of math and equations and it uses the equations to make predictions
+
+supervised vs unsupervised learning
+
+supervised: we give the data labels, we are going to spend most of our time on this, used for classification and regression
+
+unsupervised: computer working things out on its own
+
+supervised: data is labled, we split data into testing and training sets, used for prediction (what i did with pandas i think with test_train_split)
+
+unsupervised: data is unlabeled, uses all the data at once, used for discovery
+
+dimensionality reduction and k means clustering
+
+dimensionality: we plot in 2 dimensions, one variable by another variable
+
+we reduce data from 3d to 2d and we rotate the edges
+
+principal component analysis (pca), captures 99.46% of total variation
+
+## unsupervised learning
+
+principal components analysis
+
+```{r}
+head(iris)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+
+#3remove any non-numeric variables
+iris_num <- select(iris,-Species)
+iris_num
+
+## do pca
+pcas <- prcomp(iris_num,scale. = T)
+pcas
+summary(pcas)
+pcas$rotation
+```
