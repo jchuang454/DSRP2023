@@ -71,4 +71,44 @@ pcas <- prcomp(iris_num,scale. = T)
 pcas
 summary(pcas)
 pcas$rotation
+
+# get the x values of pcas and make it a data frame
+pca_vals <- as.data.frame(pcas$x)
+pca_vals$Species <- iris$Species
+ggplot(pca_vals,aes(PC1,PC2, color = Species))+
+  geom_point()+
+  theme_minimal()
+# setosa tends to be on its own while 
+#versicolor and virginica tend to be together
+# pc values are principal components and are 
+#different axis that we slice the data with to find 
+#where the most variation is
 ```
+
+### k means clustering
+
+if we have a set number of groups and we want to see how well the data falls into these groups
+
+every time you run it will be different unless you tell it to start at the same point
+
+unlabelled data into labelled clusters with centroids
+
+x and y axis do not change
+
+if you give it 3 it makes 3 groups
+
+user: input number of clusters(k)
+
+algorithim:
+
+-   k random points chosen as cluster means
+
+-   every point classified into closest cluster
+
+-   recalculate mean for each cluster and repeat
+
+remove categorical variables and na values and scale data
+
+k \<- kmeans(dataset\$column, centers = num_of_clusters)
+
+can cherry pick clusters to use with kmeans
