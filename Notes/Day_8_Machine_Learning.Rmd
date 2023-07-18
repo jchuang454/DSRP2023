@@ -72,6 +72,8 @@ pcas
 summary(pcas)
 pcas$rotation
 
+pcas$rotation^2
+
 # get the x values of pcas and make it a data frame
 pca_vals <- as.data.frame(pcas$x)
 pca_vals$Species <- iris$Species
@@ -112,3 +114,5 @@ remove categorical variables and na values and scale data
 k \<- kmeans(dataset\$column, centers = num_of_clusters)
 
 can cherry pick clusters to use with kmeans
+
+p value below 0.05 is significant, reject null (for t test)
